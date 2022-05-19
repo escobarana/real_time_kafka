@@ -8,7 +8,7 @@ In `measures.py` you can find the three different methods used to measure each s
 
 | Sensor Type   | Measure          |
 |---------------|------------------|
-| Temperature   | `ºC (Celsisus)`  |
+| Temperature   | `ºC (Celsius)`   |
 | Power         | `W (Watt)`       |
 | Load          | `% (percentage)` |
 
