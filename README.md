@@ -1,6 +1,9 @@
 # Sending sensors' measures in real time to kafka
 In order to run the code you need to have installed in your computer the following software: `https://openhardwaremonitor.org/downloads/`
-*IMPORTANT*  When producing records to a Kafka Topic, OpenHardwareMonitor must be running.
+
+**IMPORTANT:** 
+
+When producing records to a Kafka Topic, OpenHardwareMonitor must be running.
 
 ## Sensors folder
 In `measures.py` you can find the three different methods used to measure each sensor (Temperature, Power, Load)
