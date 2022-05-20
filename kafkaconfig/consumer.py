@@ -44,6 +44,10 @@ class KafkaConsumer:
         string_deserializer = StringDeserializer('utf_8')
         conf_schema = {
             'bootstrap.servers': os.environ["KAFKA_BROKER_SETTINGS"],
+            'security.protocol': 'SASL_SSL',
+            'sasl.mechanisms':   'PLAIN',
+            'sasl.username':     os.environ["KAFKA_CLUSTER_KEY"],
+            'sasl.password':     os.environ["KAFKA_CLUSTER_SECRET"],
             'key.deserializer': string_deserializer,
             'value.deserializer': json_deserializer,
             'group.id': 'json-consumer-group-1',

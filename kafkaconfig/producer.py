@@ -5,7 +5,7 @@ from confluent_kafka.schema_registry import SchemaRegistryClient
 from confluent_kafka.schema_registry.json_schema import JSONSerializer
 from confluent_kafka.serialization import StringSerializer
 import os
-from utils.sensor_schema import schema
+from kafkaconfig.utils.sensor_schema import schema
 
 
 def sensor_to_dict(sensor, ctx):
@@ -46,19 +46,25 @@ class KafkaProducer:
         conf = {
             'bootstrap.servers': os.environ["KAFKA_BROKER_SETTINGS"],
             'security.protocol': 'SASL_SSL',
-            'sasl.mechanisms': 'PLAIN',
-            'sasl.username': os.environ["KAFKA_CLUSTER_KEY"],
-            'sasl.password': os.environ["KAFKA_CLUSTER_SECRET"]
+            'sasl.mechanisms':   'PLAIN',
+            'sasl.username':     os.environ["KAFKA_CLUSTER_KEY"],
+            'sasl.password':     os.environ["KAFKA_CLUSTER_SECRET"]
         }
 
-        schema_registry_conf = {'url': os.environ["KAFKA_SCHEMA_ENDPOINT"]}
+        schema_registry_conf = {'url': os.environ["KAFKA_SCHEMA_ENDPOINT"],
+                                'basic.auth.user.info': f"{os.environ['SCHEMA_USERNAME']}:{os.environ['SCHEMA_PASSWORD']}"
+                                }
         schema_registry_client = SchemaRegistryClient(schema_registry_conf)
         json_serializer = JSONSerializer(schema, schema_registry_client, sensor_to_dict)
 
         conf_schema = {
             'bootstrap.servers': os.environ["KAFKA_BROKER_SETTINGS"],
-            'key.serializer': StringSerializer('utf_8'),
-            'value.serializer': json_serializer
+            'security.protocol': 'SASL_SSL',
+            'sasl.mechanisms':   'PLAIN',
+            'sasl.username':     os.environ["KAFKA_CLUSTER_KEY"],
+            'sasl.password':     os.environ["KAFKA_CLUSTER_SECRET"],
+            'key.serializer':    StringSerializer('utf_8'),
+            'value.serializer':  json_serializer
         }
 
         self.serializing_producer = SerializingProducer(conf_schema)

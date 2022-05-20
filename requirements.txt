@@ -1,2 +1,4 @@
 wmi
 confluent-kafka
+requests
+jsonschema
