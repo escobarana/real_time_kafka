@@ -1,4 +1,5 @@
 import wmi
+from sensor import Sensor
 
 
 class Measures:
@@ -13,47 +14,47 @@ class Measures:
         w = wmi.WMI(namespace="root\OpenHardwareMonitor")
         self.temperature_info = w.Sensor()
 
-    def get_temperature(self):
+    def get_temperature(self) -> Sensor:
         """
         Function to measure CPU temperature in celsius
-        :return: dictionary containing CPU temperature sensor relevant information
+        :return: Sensor object containing CPU temperature sensor relevant information
         """
-        measure = dict
+        sensor = None
         for sensor in self.temperature_info:
             if sensor.SensorType == 'Temperature':
-                measure = {'id': sensor.InstanceId,
-                           'name': sensor.Name,
-                           'type': sensor.SensorType,
-                           'measure_celsius': sensor.Value,
-                           'maximum_celsius': sensor.Max}
-        return measure
+                sensor = Sensor(sensor_id=sensor.InstanceId,
+                                name=sensor.Name,
+                                sensor_type=sensor.SensorType,
+                                measure=sensor.Value,
+                                maximum=sensor.Max)
+        return sensor
 
-    def get_power(self):
+    def get_power(self) -> Sensor:
         """
         Function to measure CPU power in watt
-        :return: dictionary containing CPU temperature sensor relevant information
+        :return: Sensor object containing CPU temperature sensor relevant information
         """
-        measure = dict
+        sensor = None
         for sensor in self.temperature_info:
             if sensor.SensorType == 'Power':
-                measure = {'id': sensor.InstanceId,
-                           'name': sensor.Name,
-                           'type': sensor.SensorType,
-                           'measure_watt': sensor.Value,
-                           'maximum_watt': sensor.Max}
-        return measure
+                sensor = Sensor(sensor_id=sensor.InstanceId,
+                                name=sensor.Name,
+                                sensor_type=sensor.SensorType,
+                                measure=sensor.Value,
+                                maximum=sensor.Max)
+        return sensor
 
-    def get_load(self):
+    def get_load(self) -> Sensor:
         """
         Function to measure CPU load in percentage
-        :return: dictionary containing CPU temperature sensor relevant information
+        :return: Sensor object containing CPU temperature sensor relevant information
         """
-        measure = dict
+        sensor = None
         for sensor in self.temperature_info:
             if sensor.SensorType == 'Load':
-                measure = {'id': sensor.InstanceId,
-                           'name': sensor.Name,
-                           'type': sensor.SensorType,
-                           'measure_percentage': sensor.Value,
-                           'maximum_percentage': sensor.Max}
-        return measure
+                sensor = Sensor(sensor_id=sensor.InstanceId,
+                                name=sensor.Name,
+                                sensor_type=sensor.SensorType,
+                                measure=sensor.Value,
+                                maximum=sensor.Max)
+        return sensor

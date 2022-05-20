@@ -12,3 +12,18 @@ In `measures.py` you can find the three different methods used to measure each s
 | Power         | `W (Watt)`       |
 | Load          | `% (percentage)` |
 
+
+## Environmental Variables 
+
+| Variable                | Description                              |
+|-------------------------|------------------------------------------|
+| `KAFKA_CLUSTER_KEY`     | Confluent Cloud Cluster Key              |
+| `KAFKA_CLUSTER_SECRET`  | Confluent Cloud Cluster Secret           |
+| `KAFKA_BROKER_SETTINGS` | Confluent Cloud Cluster Endpoint         |
+| `KAFKA_SCHEMA_ENDPOINT` | Confluent Cloud Schema Registry Endpoint |
+
+
+## Sensor Schema (JSON) - Schema Registry
+
+The sensor schema can be found in `kafkaconfig > utils > sensor_schema.py`. This schema will ensure that every sensor 
+record sent to the kafka topic will have this structure having always properly formatted messages.
