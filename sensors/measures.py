@@ -32,7 +32,7 @@ class Measures:
     def get_power(self) -> Sensor:
         """
         Function to measure CPU power in watt
-        :return: Sensor object containing CPU temperature sensor relevant information
+        :return: Sensor object containing CPU power sensor relevant information
         """
         sensor = None
         for sensor in self.temperature_info:
@@ -47,7 +47,7 @@ class Measures:
     def get_load(self) -> Sensor:
         """
         Function to measure CPU load in percentage
-        :return: Sensor object containing CPU temperature sensor relevant information
+        :return: Sensor object containing CPU load sensor relevant information
         """
         sensor = None
         for sensor in self.temperature_info:
